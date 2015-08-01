@@ -23,9 +23,10 @@ function create() {
   player.anchor.setTo(0.5, 0.5);
 
   // set up enemy object prototype?
-  enemies = game.add.group();
+  //enemies = game.add.group();
 
-  enemies.add(new Enemy());
+  //enemies.add(new Enemy());
+  new Enemy();
 
   // assign collision behavior
 }
