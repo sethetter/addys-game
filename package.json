@@ -26,7 +26,7 @@
     "npm": ">=1.4.3"
   },
   "scripts": {
-    "watch": "gulp build && gulp watch-scripts",
+    "watch": "nodemon --exec \"gulp build && node server\" -w src",
     "test": ""
   },
   "devDependencies": {

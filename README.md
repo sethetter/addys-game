@@ -1,22 +1,13 @@
-#addys-game
+# addys-game
 
-##About
-Coolest game ever, made by Addilyn.
+## About
 
-###Author
-Name: sethetter
-Email: sethetter@gmail.com
+Coolest game ever! Art by Addilyn Etter, code by me.
 
-##Get up and running
+## Get up and running
 
-###Setup
-
-Install all the node modules
 ```sh
-npm install
-
-gulp build
-
-node server
+$ npm install
+$ npm run-script watch
 ```
 
