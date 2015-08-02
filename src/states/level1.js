@@ -37,6 +37,12 @@ function update() {
   Player.update();
   Enemy.updateAll();
   Thing.updateAll();
+
+  /**
+   * Check for collisions
+   */
+  Enemy.checkCollision({ player: Player.obj() });
+  Thing.checkCollision({ player: Player.obj() });
 }
 
 function paused() {}

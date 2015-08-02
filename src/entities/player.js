@@ -10,6 +10,9 @@ var game = require('../game'),
 var _player;
 
 var Player = {
+  
+  // access reference to _player object
+  obj: function() { return _player._obj },
 
   // Preload player sprite
   preload: function() {
@@ -29,14 +32,22 @@ var Player = {
   /**
    * Runs the player's update function
    */
-  update: function() { _player.update() }
+  update: function() {
+    _player.update();
+  }
 };
 
 function _Player(level) {
   // Spawn in the middle of the stage
   this._obj = game.add.sprite(game.world.width / 2, game.world.height - 80, 'player');
+
+  game.physics.arcade.enable(this._obj);
+  this._obj.hitArea = 'circle';
+
   this._obj.anchor.setTo(0.5, 0.5);
   this.level = level;
+
+  return this;
 }
 
 /**

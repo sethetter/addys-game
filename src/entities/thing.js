@@ -52,6 +52,15 @@ var Thing = {
       if (thing.isDestroyed()) _things.splice(idx, 1);
       thing.update();
     });
+  },
+
+  /**
+   * Check for collision with given player object
+   */
+  checkCollision: function(objects) {
+    _things.forEach(function(thing) {
+      thing.playerCollision(objects.player);
+    });
   }
 };
 
@@ -61,8 +70,14 @@ var Thing = {
  */
 function _Thing(level) {
   this._obj = game.add.sprite(util.rand(30, game.world.width - 30), -50, 'thing');
+
+  game.physics.arcade.enable(this._obj);
+  this._obj.hitArea = 'circle';
+
   this.level = level;
   this.velocity = _getVelocity(this.level);
+
+  return this;
 }
 
 /**
@@ -72,6 +87,19 @@ function _Thing(level) {
 _Thing.prototype.update = function() {
   if (_checkOutOfBounds(this._obj.y)) this._obj.destroy();
   this._obj.y += this.velocity;
+};
+
+/**
+ * Checks and responds to a collision with the given player object
+ */
+_Thing.prototype.playerCollision = function(player) {
+  var thing = this;
+
+  game.physics.arcade.overlap(thing._obj, player, function() {
+    // add a point to the player
+    thing._obj.kill();
+    thing._obj.destroy();
+  }, null, this);
 };
 
 _Thing.prototype.isDestroyed = function() {

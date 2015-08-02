@@ -42,7 +42,17 @@ var Enemy = {
       if (enemy.isDestroyed()) _enemies.splice(idx, 1);
       enemy.update();
     });
+  },
+
+  /**
+   * Check for collision with given player object
+   */
+  checkCollision: function(objects) {
+    _enemies.forEach(function(enemy) {
+      enemy.playerCollision(objects.player);
+    });
   }
+
 };
 
 /**
@@ -51,6 +61,10 @@ var Enemy = {
  */
 function _Enemy(level) {
   this._obj = game.add.sprite(util.rand(30, game.world.width - 30), -50, 'enemy');
+
+  game.physics.arcade.enable(this._obj);
+  this._obj.hitArea = 'circle';
+
   this.level = level;
   this.velocity = _getVelocity(this.level);
 }
@@ -62,6 +76,19 @@ function _Enemy(level) {
 _Enemy.prototype.update = function() {
   if (_checkOutOfBounds(this._obj.y)) this._obj.destroy();
   this._obj.y += this.velocity;
+};
+
+/**
+ * Checks and responds to a collision with the given player object
+ */
+_Enemy.prototype.playerCollision = function(player) {
+  var enemy = this;
+
+  game.physics.arcade.overlap(enemy._obj, player, function() {
+    // take a life from the player
+    enemy._obj.kill();
+    enemy._obj.destroy();
+  }, null, this);
 };
 
 _Enemy.prototype.isDestroyed = function() {
