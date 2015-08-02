@@ -19,6 +19,10 @@ function _Player(level) {
   this.level = level;
 }
 
+/**
+ * This player is bound to the moust position, we are also doing a check that
+ * the player doesn't go off stage at all, and if so, we lock them at the edge
+ */
 _Player.prototype.update = function() {
   // bind to mouse position
   this._obj.x = game.input.mousePointer.x;
@@ -36,9 +40,5 @@ _Player.prototype.update = function() {
 _Player.prototype.isDestroyed = function() {
   return !this._obj.exists;
 };
-
-function _checkOutOfBounds(y) {
-  return (y > game.world.height + 50);
-}
 
 module.exports = Player;
