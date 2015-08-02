@@ -6,7 +6,8 @@ var game = require('../game'),
 var Enemy = require('../entities/enemy'); 
 
 var player,
-  enemies;
+  enemySpawnTimer,
+  enemies = [];
 
 function preload() {
   game.load.image('player', '../assets/char_02_sized.png');
@@ -22,13 +23,14 @@ function create() {
   // set the x, y anchor to be in the middle of the player sprite
   player.anchor.setTo(0.5, 0.5);
 
-  // set up enemy object prototype?
-  //enemies = game.add.group();
+  // TODO: Remove later, for debugging only
+  window.enemies = enemies;
 
-  //enemies.add(new Enemy());
-  new Enemy();
+  enemySpawnTimer = setInterval(function() {
+    enemies.push(Enemy.createEnemy(1));
+  }, 1500);
 
-  // assign collision behavior
+  // TODO: assign collision behavior
 }
 
 function update() {
@@ -41,6 +43,11 @@ function update() {
   } else if (player.x > (game.world.width - (player.width / 2))) {
     player.x = game.world.width - (player.width / 2);
   }
+
+  enemies.forEach(function(enemy, idx) {
+    if (enemy.isDestroyed()) enemies.splice(idx, 1);
+    enemy.move();
+  });
 
   // timer for enemy creation, or rand number check <-- this
   // - add to enemy group
@@ -59,7 +66,7 @@ function render() {
 }
 
 function shutdown() {
-
+  removeInterval(enemySpawnTimer);
 }
 
 var level1State = {

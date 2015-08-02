@@ -3,11 +3,37 @@
 var game = require('../game'),
   Phaser = require('phaser').Phaser;
 
-function Enemy() {
-  this._obj = game.add.sprite(game.world.width / 2, game.world.height / 2, 'enemy');
+var Enemy = {
+  preload: function() {
+    game.load.image('enemy', '../assets/char_01_sized.png');
+  },
+  createEnemy: function(level) {
+    return new _Enemy(level);
+  }
+};
+
+function _Enemy(level) {
+  this._obj = game.add.sprite(game.world.width / 2, -50, 'enemy');
+  this.level = level;
+  this.velocity = _getVelocity(this.level);
 }
 
-Enemy.prototype.move = function() {
+_Enemy.prototype.move = function() {
+  if (_checkOutOfBounds(this._obj.y)) this._obj.destroy();
+  this._obj.y += this.velocity;
 };
+
+_Enemy.prototype.isDestroyed = function() {
+  return !this._obj.exists;
+};
+
+function _getVelocity(level) {
+  // determine based on level
+  return 5 + (level * 2);
+};
+
+function _checkOutOfBounds(y) {
+  return (y > game.world.height + 50);
+}
 
 module.exports = Enemy;
