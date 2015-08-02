@@ -1,58 +1,49 @@
 'use strict';
 
 var game = require('../game'),
-  util = require('../util');
+  util = require('../util'),
   Phaser = require('phaser').Phaser;
 
-var Enemy = require('../entities/enemy'); 
+var Player = require('../entities/player'),
+  Enemy = require('../entities/enemy'),
+  Thing = require('../entities/thing');
 
 var player,
-  enemySpawnTimer,
-  enemies = [];
+  thingSpawnTimer,
+  enemies = [],
+  things = [];
 
 function preload() {
+  // TODO: Make player entitity
   game.load.image('player', '../assets/char_02_sized.png');
-  game.load.image('enemy', '../assets/char_01_sized.png');
+  Enemy.preload();
+  Thing.preload();
 }
 
 function create() {
   // set stage background
 
   // create player object
-  player = game.add.sprite(game.world.width / 2, game.world.height - 200, 'player');
-
-  // set the x, y anchor to be in the middle of the player sprite
-  player.anchor.setTo(0.5, 0.5);
+  player = Player.create({ level: 1 });
 
   // TODO: assign collision behavior
 }
 
 function update() {
-  // bind mouse x to player x
-  player.x = game.input.mousePointer.x;
+  // Attempt making an enemy
+  var enemy = Enemy.maybeCreate({ level: 1 });
+  if (enemy) enemies.push(enemy);
 
-  // keep the player from going off stage
-  if (player.x < (0 + (player.width / 2))) {
-    player.x = 0 + (player.width / 2);
-  } else if (player.x > (game.world.width - (player.width / 2))) {
-    player.x = game.world.width - (player.width / 2);
-  }
+  // Attempt to make a thing
+  var thing = Thing.maybeCreate({ level: 1 });
+  if (thing) things.push(thing);
 
-  // Method for generating random enemies
-  if (util.rand(40) === 1) enemies.push(Enemy.createEnemy(1));
-
-  // Run enemy related loop functions
-  enemies.forEach(function(enemy, idx) {
-    if (enemy.isDestroyed()) enemies.splice(idx, 1);
-    enemy.move();
-  });
-
-  // timer for enemy creation, or rand number check <-- this
-  // - add to enemy group
-  // - set rand parameters
-  // -- write helper functions for these
-  // -- helper function for this whole create process? yeah
-
+  /**
+   * Update all the entities!
+   */
+  player.update();
+  Enemy.updateAll();
+  Thing.updateAll();
 }
 
 function paused() {}

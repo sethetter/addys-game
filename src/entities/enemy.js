@@ -4,12 +4,26 @@ var game = require('../game'),
   util = require('../util'),
   Phaser = require('phaser').Phaser;
 
+var _enemies = [];
+
 var Enemy = {
   preload: function() {
     game.load.image('enemy', '../assets/char_01_sized.png');
   },
-  createEnemy: function(level) {
-    return new _Enemy(level);
+  create: function(opts) {
+    var enemy = new _Enemy(opts.level);
+    _enemies.push(enemy);
+    return enemy;
+  },
+  maybeCreate: function(opts) {
+    var check = (util.rand(80 / (opts.level * .6)) === 1)
+    return check ? Enemy.create(opts) : false;
+  },
+  updateAll: function() {
+    _enemies.forEach(function(enemy, idx) {
+      //if (enemy.isDestroyed()) enemies.splice(idx, 1);
+      enemy.update();
+    });
   }
 };
 
@@ -19,7 +33,7 @@ function _Enemy(level) {
   this.velocity = _getVelocity(this.level);
 }
 
-_Enemy.prototype.move = function() {
+_Enemy.prototype.update = function() {
   if (_checkOutOfBounds(this._obj.y)) this._obj.destroy();
   this._obj.y += this.velocity;
 };
