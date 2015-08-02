@@ -25,13 +25,11 @@ function create() {
 }
 
 function update() {
-  // Attempt making an enemy
-  var enemy = Enemy.maybeCreate({ level: 1 });
-  if (enemy) enemies.push(enemy);
-
-  // Attempt to make a thing
-  var thing = Thing.maybeCreate({ level: 1 });
-  if (thing) things.push(thing);
+  /**
+   * Run a chance at creating variable spawn entities
+   */
+  Enemy.maybeCreate({ level: 1 });
+  Thing.maybeCreate({ level: 1 });
 
   /**
    * Update all the entities!
