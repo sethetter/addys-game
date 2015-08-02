@@ -1,6 +1,7 @@
 'use strict';
 
 var game = require('../game'),
+  util = require('../util');
   Phaser = require('phaser').Phaser;
 
 var Enemy = require('../entities/enemy'); 
@@ -23,13 +24,6 @@ function create() {
   // set the x, y anchor to be in the middle of the player sprite
   player.anchor.setTo(0.5, 0.5);
 
-  // TODO: Remove later, for debugging only
-  window.enemies = enemies;
-
-  enemySpawnTimer = setInterval(function() {
-    enemies.push(Enemy.createEnemy(1));
-  }, 1500);
-
   // TODO: assign collision behavior
 }
 
@@ -44,6 +38,8 @@ function update() {
     player.x = game.world.width - (player.width / 2);
   }
 
+  if (util.rand(40) === 1) enemies.push(Enemy.createEnemy(1));
+
   enemies.forEach(function(enemy, idx) {
     if (enemy.isDestroyed()) enemies.splice(idx, 1);
     enemy.move();
@@ -57,17 +53,9 @@ function update() {
 
 }
 
-function paused() {
-
-}
-
-function render() {
-
-}
-
-function shutdown() {
-  removeInterval(enemySpawnTimer);
-}
+function paused() {}
+function render() {}
+function shutdown() {}
 
 var level1State = {
   preload: preload,

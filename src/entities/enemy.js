@@ -1,6 +1,7 @@
 'use strict';
 
 var game = require('../game'),
+  util = require('../util'),
   Phaser = require('phaser').Phaser;
 
 var Enemy = {
@@ -13,7 +14,7 @@ var Enemy = {
 };
 
 function _Enemy(level) {
-  this._obj = game.add.sprite(game.world.width / 2, -50, 'enemy');
+  this._obj = game.add.sprite(util.rand(30, game.world.width - 30), -50, 'enemy');
   this.level = level;
   this.velocity = _getVelocity(this.level);
 }
