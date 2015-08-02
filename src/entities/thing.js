@@ -97,6 +97,7 @@ _Thing.prototype.playerCollision = function(player) {
 
   game.physics.arcade.overlap(thing._obj, player, function() {
     // add a point to the player
+    game.score += 3 * thing.level;
     thing._obj.kill();
     thing._obj.destroy();
   }, null, this);

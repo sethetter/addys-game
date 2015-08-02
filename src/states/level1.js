@@ -6,7 +6,8 @@ var game = require('../game'),
 
 var Player = require('../entities/player'),
   Enemy = require('../entities/enemy'),
-  Thing = require('../entities/thing');
+  Thing = require('../entities/thing'),
+  ScoreDisplay = require('../entities/scoreDisplay');
 
 function preload() {
   // TODO: Make player entitity
@@ -20,6 +21,15 @@ function create() {
 
   // create player object
   Player.create({ level: 1 });
+  ScoreDisplay.create();
+
+  var headerText = 'Addy\'s Game!';
+  var headerTextStyle = {
+    font: '26pt Helvetica',
+    fill: '#fff',
+    align: 'center'
+  };
+
 }
 
 function update() {
@@ -35,6 +45,7 @@ function update() {
   Player.update();
   Enemy.updateAll();
   Thing.updateAll();
+  ScoreDisplay.update();
 
   /**
    * Check for collisions
