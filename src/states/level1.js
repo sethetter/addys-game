@@ -20,8 +20,6 @@ function create() {
 
   // create player object
   Player.create({ level: 1 });
-
-  // TODO: assign collision behavior
 }
 
 function update() {

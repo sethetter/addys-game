@@ -7,4 +7,6 @@ var w = window.innerWidth * window.devicePixelRatio,
 
 game = new Phaser.Game(w, h, Phaser.AUTO, 'phaser_game');
 
+game.score = 0;
+
 module.exports = game;
