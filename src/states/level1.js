@@ -38,8 +38,10 @@ function update() {
     player.x = game.world.width - (player.width / 2);
   }
 
+  // Method for generating random enemies
   if (util.rand(40) === 1) enemies.push(Enemy.createEnemy(1));
 
+  // Run enemy related loop functions
   enemies.forEach(function(enemy, idx) {
     if (enemy.isDestroyed()) enemies.splice(idx, 1);
     enemy.move();
