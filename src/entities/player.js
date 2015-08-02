@@ -7,18 +7,30 @@ var game = require('../game'),
 var _player;
 
 var Player = {
+
+  // Preload player sprite
   preload: function() {
     game.load.image('player', '../assets/char_02_sized.png');
   },
+
+  /**
+   * Check if we have an existing player, if so, destroy it and then create and
+   * return a new one.
+   */
   create: function(opts) {
     if (!(typeof _player === 'undefined') && _player) _player.destroy();
     _player = null;
     _player = new _Player(opts.level);
   },
-  update: function() { _player.update() };
+
+  /**
+   * Runs the player's update function
+   */
+  update: function() { _player.update() }
 };
 
 function _Player(level) {
+  // Spawn in the middle of the stage
   this._obj = game.add.sprite(game.world.width / 2, (game.world.height / 2) + 300, 'player');
   this._obj.anchor.setTo(0.5, 0.5);
   this.level = level;
