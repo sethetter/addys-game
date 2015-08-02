@@ -4,6 +4,9 @@ var game = require('../game'),
   util = require('../util'),
   Phaser = require('phaser').Phaser;
 
+/**
+ * Holds a reference all enemies on the stge
+ */
 var _enemies = [];
 
 var Enemy = {

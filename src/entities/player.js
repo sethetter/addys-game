@@ -4,6 +4,9 @@ var game = require('../game'),
   util = require('../util'),
   Phaser = require('phaser').Phaser;
 
+/**
+ * Holds a reference to the player on stage
+ */
 var _player;
 
 var Player = {

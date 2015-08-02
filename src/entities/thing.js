@@ -4,6 +4,9 @@ var game = require('../game'),
   util = require('../util'),
   Phaser = require('phaser').Phaser;
 
+/**
+ * Holds a reference all things on the stge
+ */
 var _things = [];
 
 var Thing = {
