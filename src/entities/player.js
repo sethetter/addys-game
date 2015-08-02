@@ -34,7 +34,7 @@ var Player = {
 
 function _Player(level) {
   // Spawn in the middle of the stage
-  this._obj = game.add.sprite(game.world.width / 2, (game.world.height / 2) + 300, 'player');
+  this._obj = game.add.sprite(game.world.width / 2, game.world.height - 80, 'player');
   this._obj.anchor.setTo(0.5, 0.5);
   this.level = level;
 }
@@ -46,7 +46,6 @@ function _Player(level) {
 _Player.prototype.update = function() {
   // bind to mouse position
   this._obj.x = game.input.mousePointer.x;
-  this._obj.y = game.input.mousePointer.y;
 
   // keep the player from going off stage
   if (this._obj.x < (0 + (this._obj.width / 2))) {
