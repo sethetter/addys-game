@@ -8,23 +8,18 @@ var Player = require('../entities/player'),
   Enemy = require('../entities/enemy'),
   Thing = require('../entities/thing');
 
-var player,
-  thingSpawnTimer,
-  enemies = [],
-  things = [];
-
 function preload() {
   // TODO: Make player entitity
-  game.load.image('player', '../assets/char_02_sized.png');
+  Player.preload();
   Enemy.preload();
   Thing.preload();
 }
 
 function create() {
-  // set stage background
+  // TODO: set stage background
 
   // create player object
-  player = Player.create({ level: 1 });
+  Player.create({ level: 1 });
 
   // TODO: assign collision behavior
 }
@@ -41,7 +36,7 @@ function update() {
   /**
    * Update all the entities!
    */
-  player.update();
+  Player.update();
   Enemy.updateAll();
   Thing.updateAll();
 }

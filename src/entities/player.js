@@ -4,13 +4,18 @@ var game = require('../game'),
   util = require('../util'),
   Phaser = require('phaser').Phaser;
 
+var _player;
+
 var Player = {
   preload: function() {
     game.load.image('player', '../assets/char_02_sized.png');
   },
   create: function(opts) {
-    return new _Player(opts.level);
-  }
+    if (!(typeof _player === 'undefined') && _player) _player.destroy();
+    _player = null;
+    _player = new _Player(opts.level);
+  },
+  update: function() { _player.update() };
 };
 
 function _Player(level) {
