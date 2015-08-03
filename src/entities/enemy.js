@@ -86,6 +86,8 @@ _Enemy.prototype.playerCollision = function(player) {
 
   game.physics.arcade.overlap(enemy._obj, player, function() {
     // take a life from the player
+    player.health -= 1;
+
     enemy._obj.kill();
     enemy._obj.destroy();
   }, null, this);

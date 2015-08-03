@@ -23,13 +23,6 @@ function create() {
   Player.create({ level: 1 });
   ScoreDisplay.create();
 
-  var headerText = 'Addy\'s Game!';
-  var headerTextStyle = {
-    font: '26pt Helvetica',
-    fill: '#fff',
-    align: 'center'
-  };
-
 }
 
 function update() {

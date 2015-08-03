@@ -1,17 +1,16 @@
+'use strict';
 var game = require('../game'),
   Phaser = require('phaser').Phaser;
 
-// Runs when the state starts
-function createBootState() {
-
-  var headerText = 'Addy\'s Game!';
+function create() {
+  var headerText = 'Dude! You lost!';
   var headerTextStyle = {
     font: '26pt Helvetica',
     fill: '#fff',
     align: 'center'
   };
 
-  var bodyText = 'Press space to get started!';
+  var bodyText = 'Press space to start over.';
   var bodyTextStyle = {
     font: '14pt Helvetica',
     fill: '#fff',
@@ -24,17 +23,22 @@ function createBootState() {
   var spaceKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
   spaceKey.onDown.add(function(e) {
-    game.state.start('level1');
+    game.state.start('boot');
   });
 }
 
-// Runs on each game loop tick
-function updateBootState() {
-}
+function update() {}
+function paused() {}
+function render() {}
+function shutdown() {}
 
-var boot = {
-  create: createBootState,
-  update: updateBootState
+var gameOverState = {
+  create: create,
+  update: update,
+  paused: paused,
+  render: render,
+  shutdown: shutdown
 };
 
-module.exports = boot;
+
+module.exports = gameOverState;

@@ -10,7 +10,7 @@ var game = require('../game'),
 var _player;
 
 var Player = {
-  
+
   // access reference to _player object
   obj: function() { return _player._obj },
 
@@ -24,7 +24,7 @@ var Player = {
    * return a new one.
    */
   create: function(opts) {
-    if (!(typeof _player === 'undefined') && _player) _player.destroy();
+    if (!(typeof _player === 'undefined') && _player) _player._obj.destroy();
     _player = null;
     _player = new _Player(opts.level);
   },
@@ -40,6 +40,11 @@ var Player = {
 function _Player(level) {
   // Spawn in the middle of the stage
   this._obj = game.add.sprite(game.world.width / 2, game.world.height - 80, 'player');
+
+  /**
+   * Assign health points
+   */
+  this._obj.health = 3;
 
   game.physics.arcade.enable(this._obj);
   this._obj.hitArea = 'circle';
@@ -63,6 +68,13 @@ _Player.prototype.update = function() {
     this._obj.x = 0 + (this._obj.width / 2);
   } else if (this._obj.x > (game.world.width - (this._obj.width / 2))) {
     this._obj.x = game.world.width - (this._obj.width / 2);
+  }
+
+  // Check if health is 0
+  if (this._obj.health <= 0) {
+    game.state.start('gameOver');
+    this._obj.kill();
+    this._obj.health = 1;
   }
 
 };
